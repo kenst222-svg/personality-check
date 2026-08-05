@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>こころサポート｜人格適応論 簡易自己チェック</title>
+<meta name="description" content="6つのタイプ傾向から、自分の強み・ストレス時の傾向・コミュニケーションのヒントを確認できる簡易自己チェックです。">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<style>
+:root{--ink:#3e3a36;--muted:#756e67;--bg:#fbf7f1;--card:#fff;--line:#e9dfd5;--main:#D67B65;--green:#4f8b6b;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Yu Gothic",sans-serif;color:var(--ink);background:
+radial-gradient(circle at 12% 0%,#fff0e6 0 12%,transparent 28%),
+radial-gradient(circle at 90% 6%,#edf7ef 0 11%,transparent 26%),var(--bg);}
+button{font:inherit}
+.app{max-width:980px;margin:auto;padding:18px 14px 60px}
+.brand{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.logo{font-weight:800;letter-spacing:.08em;color:#547863} .logo span{color:#d47f69}
+.badge{font-size:12px;background:#fff;border:1px solid var(--line);padding:7px 11px;border-radius:999px;color:var(--muted)}
+.hero{background:linear-gradient(135deg,#fff,#fff8f1 55%,#edf7ef);border:1px solid var(--line);border-radius:30px;overflow:hidden;box-shadow:0 20px 60px rgba(76,59,42,.1);padding:clamp(22px,5vw,46px);position:relative}
+.hero:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:-80px;top:-90px;background:rgba(214,123,101,.1)}
+.kicker{color:#4f8b6b;font-weight:800;font-size:14px;letter-spacing:.12em}
+h1{font-size:clamp(32px,7vw,58px);line-height:1.16;margin:10px 0 14px}
+h1 em{font-style:normal;color:#d47762}
+.lead{line-height:1.9;max-width:680px;color:#625c56}
+.hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:22px;align-items:center}
+.mascot-stage{min-height:260px;display:grid;place-items:center;position:relative}
+.mascot{width:230px;height:230px}
+.float{position:absolute;background:#fff;border:1px solid var(--line);box-shadow:0 10px 24px rgba(0,0,0,.08);border-radius:18px;padding:10px 12px;font-size:13px}
+.f1{left:0;top:18px} .f2{right:0;bottom:24px}
+.points{display:flex;gap:8px;flex-wrap:wrap;margin:18px 0}
+.point{background:#fff;border:1px solid var(--line);padding:8px 11px;border-radius:12px;font-size:13px}
+.cta{border:0;background:linear-gradient(135deg,#d67b65,#e7a26e);color:#fff;font-weight:800;padding:15px 26px;border-radius:999px;box-shadow:0 10px 24px rgba(214,123,101,.28);cursor:pointer}
+.note{font-size:12px;color:var(--muted);line-height:1.75;margin-top:14px}
+.hidden{display:none!important}
+.progress-wrap{position:sticky;top:0;z-index:5;background:rgba(251,247,241,.94);backdrop-filter:blur(8px);padding:12px 0}
+.progress{height:10px;background:#e9dfd5;border-radius:999px;overflow:hidden} .bar{height:100%;width:0;background:linear-gradient(90deg,#d67b65,#e5b06d);transition:.25s}
+.counter{text-align:right;font-size:12px;color:var(--muted);margin-top:5px}
+.qcard{background:#fff;border:1px solid var(--line);border-radius:24px;padding:22px;box-shadow:0 12px 30px rgba(0,0,0,.06)}
+.qno{font-size:13px;color:#4f8b6b;font-weight:800} .question{font-size:clamp(19px,4vw,25px);font-weight:800;line-height:1.6;margin:10px 0 18px}
+.options{display:grid;gap:10px}
+.opt{display:flex;align-items:center;gap:12px;border:1px solid var(--line);border-radius:15px;padding:14px;cursor:pointer;transition:.15s}
+.opt:hover{transform:translateY(-1px);background:#fff9f4} .opt input{transform:scale(1.25)}
+.actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:18px}
+.btn{border:0;border-radius:999px;padding:13px 21px;font-weight:800;cursor:pointer}
+.primary{background:#d67b65;color:#fff} .secondary{background:#eee5dc;color:#554d47}
+.result-shell{display:grid;gap:16px}
+.result-hero{background:linear-gradient(135deg,#fff,#f0faf4);border:1px solid var(--line);border-radius:28px;padding:24px;box-shadow:0 14px 35px rgba(0,0,0,.07)}
+.result-head{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:center}
+.result-type{display:inline-flex;align-items:center;gap:10px;color:white;font-weight:900;font-size:clamp(28px,6vw,48px);padding:9px 20px;border-radius:999px;margin:8px 0}
+.result-title{font-size:20px;font-weight:800;line-height:1.5}
+.character-card{border-radius:22px;padding:18px;text-align:center;border:1px solid var(--line);background:#fff}
+.character-card .char{font-size:72px;line-height:1}
+.character-card strong{display:block;font-size:20px;margin-top:8px}
+.rank{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.rank span{padding:8px 11px;background:#fff;border:1px solid var(--line);border-radius:12px;font-size:13px}
+.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:24px;padding:20px}
+.panel h2{margin:0 0 14px;font-size:21px}
+.insight{border-radius:18px;padding:16px;margin:12px 0;line-height:1.85}
+.good{background:#eef8f1;border:1px solid #cce6d4} .stress{background:#f5effa;border:1px solid #e1d4ed}
+.comm{background:#eef6ff;border:1px solid #cfe0f4} .care{background:#fff7e9;border:1px solid #f0dcb7}
+.insight h3{margin:0 0 7px;font-size:17px}
+.radar{width:100%;max-width:390px;display:block;margin:auto}
+.score-row{display:grid;grid-template-columns:82px 1fr 36px;gap:8px;align-items:center;margin:10px 0}
+.track{height:13px;background:#eee8e1;border-radius:999px;overflow:hidden} .fill{height:100%;border-radius:999px}
+.types{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}
+.type-chip{text-align:center;border-radius:14px;padding:11px;font-size:12px;line-height:1.5;border:1px solid var(--line)}
+.type-chip b{display:block;font-size:15px}
+.pdf-note{font-size:12px;color:var(--muted);line-height:1.7}
+.loading{position:fixed;inset:0;background:rgba(255,255,255,.82);display:grid;place-items:center;z-index:99;font-weight:800}
+.spinner{width:44px;height:44px;border:5px solid #eadfd5;border-top-color:#d67b65;border-radius:50%;animation:spin 1s linear infinite;margin:auto auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(max-width:720px){.hero-grid,.result-head,.grid{grid-template-columns:1fr} .mascot-stage{min-height:220px} .types{grid-template-columns:repeat(2,1fr)} .app{padding:12px 10px 40px}}
+@media print{body{background:#fff} .brand,.actions,.progress-wrap,#intro,footer{display:none!important} .app{max-width:none;padding:0} .panel,.result-hero{break-inside:avoid;box-shadow:none}}
+</style>
+</head>
+<body>
+<div id="loading" class="loading hidden"><div><div class="spinner"></div>PDFを作成しています…</div></div>
+<div class="app">
+  <div class="brand"><div class="logo">こころ<span>サポート</span></div><div class="badge">簡易傾向チェック</div></div>
+
+  <section id="intro" class="hero">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker">SELF CHECK</div>
+        <h1>3分でわかる<br><em>人格適応論</em> 簡易自己チェック</h1>
+        <p class="lead">30の質問から、あなたの中にある6タイプのバランスを確認します。強み、ストレス時の傾向、コミュニケーションのヒントを見つけてみましょう。</p>
+        <div class="points">
+          <span class="point">✓ スマホ対応</span><span class="point">✓ 6タイプ図解</span><span class="point">✓ PDF結果保存</span>
+        </div>
+        <button class="cta" onclick="startQuiz()">チェックを始める</button>
+        <div class="note">本チェックは自己理解を目的とした非公式の簡易チェックであり、医療・心理診断ではありません。回答は端末内で計算され、外部へ送信されません。</div>
+      </div>
+      <div class="mascot-stage">
+        <svg class="mascot" viewBox="0 0 260 260" aria-label="猫のキャラクター">
+          <circle cx="130" cy="135" r="105" fill="#fff1df"/>
+          <path d="M74 83 L62 28 L107 63" fill="#d49a6a"/><path d="M186 83 L198 28 L153 63" fill="#d49a6a"/>
+          <ellipse cx="130" cy="132" rx="74" ry="78" fill="#d9a370"/>
+          <path d="M83 90 Q130 55 177 90" fill="none" stroke="#8d5f3d" stroke-width="8" stroke-linecap="round"/>
+          <path d="M100 106 Q110 96 120 106" fill="none" stroke="#3f352d" stroke-width="6" stroke-linecap="round"/>
+          <path d="M140 106 Q150 96 160 106" fill="none" stroke="#3f352d" stroke-width="6" stroke-linecap="round"/>
+          <path d="M122 126 Q130 134 138 126" fill="#b96b68"/>
+          <path d="M130 134 Q116 146 104 136 M130 134 Q144 146 156 136" fill="none" stroke="#3f352d" stroke-width="4" stroke-linecap="round"/>
+          <path d="M84 128 L34 118 M84 140 L30 145 M176 128 L226 118 M176 140 L230 145" stroke="#6d5949" stroke-width="3"/>
+          <circle cx="86" cy="132" r="8" fill="#e58e88" opacity=".45"/><circle cx="174" cy="132" r="8" fill="#e58e88" opacity=".45"/>
+          <path d="M94 180 Q130 203 166 180" fill="#fff" opacity=".65"/>
+        </svg>
+        <div class="float f1">あなたらしさを発見！</div>
+        <div class="float f2">結果はPDF保存できます</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="quiz" class="hidden">
+    <div class="progress-wrap"><div class="progress"><div id="bar" class="bar"></div></div><div id="counter" class="counter"></div></div>
+    <div id="questionArea"></div>
+    <div class="actions"><button id="prevBtn" class="btn secondary" onclick="prevQuestion()">戻る</button><button id="nextBtn" class="btn primary" onclick="nextQuestion()">次へ</button></div>
+  </section>
+
+  <section id="result" class="hidden"></section>
+  <footer class="note">© こころサポート｜人格適応論を参考にした独自の簡易傾向チェック。公式心理検査ではありません。</footer>
+</div>
+
+<script>
+const questions=[{"type": "想像型", "text": "一人で静かに考える時間があると落ち着く"}, {"type": "想像型", "text": "人前に出るより、裏方で支える方が得意だ"}, {"type": "想像型", "text": "話す前に頭の中で考えを整理することが多い"}, {"type": "想像型", "text": "新しい発想や空想を楽しむ"}, {"type": "想像型", "text": "急かされるより、自分のペースで進めたい"}, {"type": "行動型", "text": "考え込むより、まず動いてみる方だ"}, {"type": "行動型", "text": "結果がはっきりしているとやる気が出る"}, {"type": "行動型", "text": "変化や刺激のある状況を楽しめる"}, {"type": "行動型", "text": "決断は比較的早い方だ"}, {"type": "行動型", "text": "人から注目されたり評価されたりすると力が出る"}, {"type": "信念型", "text": "約束や礼儀を大切にしている"}, {"type": "信念型", "text": "自分が正しいと思うことは、きちんと伝えたい"}, {"type": "信念型", "text": "相手が信頼できる人かどうかを慎重に見極める"}, {"type": "信念型", "text": "成果だけでなく、取り組む姿勢も大切だと思う"}, {"type": "信念型", "text": "納得できる理由や根拠があると安心する"}, {"type": "反応型", "text": "楽しい雰囲気だと自然にやる気が出る"}, {"type": "反応型", "text": "好き・嫌いが表情や言葉に出やすい"}, {"type": "反応型", "text": "細かく指示されるより、自由にやりたい"}, {"type": "反応型", "text": "その場のノリや直感を大切にする"}, {"type": "反応型", "text": "面白いことや新しい遊びを考えるのが好きだ"}, {"type": "思考型", "text": "物事は順序立てて整理したい"}, {"type": "思考型", "text": "判断する前に情報や事実を集める"}, {"type": "思考型", "text": "期限や予定が明確だと安心する"}, {"type": "思考型", "text": "できるだけ正確に、きちんと仕上げたい"}, {"type": "思考型", "text": "役割を任されると責任を持ってやり遂げようとする"}, {"type": "感情型", "text": "相手の気持ちを考えて声をかけることが多い"}, {"type": "感情型", "text": "人が困っていると放っておけない"}, {"type": "感情型", "text": "周囲の人間関係が良いと安心して力を出せる"}, {"type": "感情型", "text": "感謝されたり気にかけてもらったりすると嬉しい"}, {"type": "感情型", "text": "相手を喜ばせるために、自分にできることを考える"}];
+const profiles={"想像型": {"title": "静かに深く考えるクリエイター", "tag": "想像力・独創性・静かな集中", "color": "#E6A33B", "soft": "#FFF5DA", "icon": "💡", "good": "落ち着いた環境では、豊かな想像力と独自の視点を発揮します。目立つよりも、裏方として丁寧に支えたり、一人で集中して考えたりする場面で力を出しやすいタイプです。", "stress": "負担が続くと、考えがまとまらず固まったり、必要なことを後回しにしたり、人との関わりを避けたくなることがあります。", "comm": "急かされると力を出しにくいため、考える時間を確保しましょう。自分の考えを短い言葉でも伝えると、周囲に理解されやすくなります。", "care": "一人で落ち着ける時間と空間を意識して確保し、考えがまとまったら小さな行動を一つ決めてみましょう。"}, "行動型": {"title": "結果を生み出すチャレンジャー", "tag": "行動力・決断力・結果志向", "color": "#5E8FD8", "soft": "#EAF2FF", "icon": "🚀", "good": "目標がはっきりしていると、決断の早さと行動力を発揮します。状況への順応力があり、周囲を巻き込みながら結果につなげることが得意です。", "stress": "負担が続くと、自分のやり方を押し通したり、間違いを認めにくくなったり、相手を急かしてしまうことがあります。", "comm": "結論を急ぎすぎず、相手の考えや気持ちを確認する時間を持ちましょう。「まず聞く、次に決める」を意識すると強みがさらに活きます。", "care": "適度な刺激や挑戦を取り入れながら、立ち止まって振り返る時間も持ちましょう。"}, "信念型": {"title": "信頼を積み重ねる守護者", "tag": "信頼・責任感・価値観", "color": "#6E9B75", "soft": "#EAF6EC", "icon": "🛡️", "good": "誠実で責任感があり、礼儀や信頼を大切にします。自分なりの価値観や基準を持ち、慎重に物事を見極めることができます。", "stress": "負担が続くと、自分の考えを強く押し通したり、相手の姿勢や意見を厳しく見たり、細かな欠点が気になりやすくなります。", "comm": "正しさだけでなく、相手が何を大切にしているかにも目を向けましょう。意見の違いを「間違い」ではなく「価値観の違い」と捉えると対話が深まります。", "care": "信頼できる人の考えに触れたり、自然の中で気持ちを切り替えたりする時間を持ちましょう。"}, "反応型": {"title": "場を明るくするムードメーカー", "tag": "明るさ・自由・遊び心", "color": "#9A78D1", "soft": "#F2ECFF", "icon": "🎈", "good": "楽しさや自由がある場面では、素直な反応と遊び心で周囲を明るくします。柔軟な発想や親しみやすさが魅力です。", "stress": "負担が続くと、不平不満が増えたり、指示されることに反発したり、好き・嫌いだけで判断しやすくなることがあります。", "comm": "最初の反応だけで決めつけず、少し間を置いて事実も確認しましょう。自分にも相手にも選択肢を残すと、関係がスムーズになります。", "care": "楽しいことや自由に選べる時間を取り入れ、気分が大きく動いたときは少し時間を置いてから決めましょう。"}, "思考型": {"title": "正確に進める分析家", "tag": "論理性・分析力・正確さ", "color": "#3E9667", "soft": "#EAF7EF", "icon": "🔍", "good": "事実や情報を整理し、計画的に進める力があります。責任感が強く、正確さや効率を大切にし、分かりやすく説明することが得意です。", "stress": "負担が続くと、完璧を求めすぎたり、仕事を抱え込みすぎたり、細部が気になって休みにくくなることがあります。", "comm": "正確さを大切にしつつ、相手が求めているのが「答え」なのか「共感」なのかを確認しましょう。説明は結論から伝えるとより届きやすくなります。", "care": "頭を使い続けた日は、意識して体を動かしたり、何もしない時間をつくったりしましょう。"}, "感情型": {"title": "人をあたためるサポーター", "tag": "共感・思いやり・調和", "color": "#E37983", "soft": "#FFF0F2", "icon": "❤", "good": "相手の気持ちに寄り添い、安心できる雰囲気をつくります。人間関係を大切にし、周囲を支える力があります。", "stress": "負担が続くと、相手に気を遣いすぎたり、自分の気持ちを後回しにしたり、周囲の反応に大きく左右されやすくなります。", "comm": "相手を大切にするのと同じように、自分の希望や限界も言葉にしましょう。「私はこう感じます」と伝えることが大切です。", "care": "人に気を配った分だけ、自分の気持ちにも目を向け、安心できる人に話す時間を持ちましょう。"}};
+const choices=[["とても当てはまる",3],["やや当てはまる",2],["あまり当てはまらない",1],["当てはまらない",0]];
+let idx=0;
+const answers=new Array(questions.length).fill(null);
+
+function startQuiz(){document.getElementById("intro").classList.add("hidden");document.getElementById("quiz").classList.remove("hidden");renderQuestion();}
+function renderQuestion(){
+ const q=questions[idx];
+ document.getElementById("questionArea").innerHTML=`<div class="qcard"><div class="qno">QUESTION ${idx+1} / ${questions.length}</div><div class="question">${q.text}</div><div class="options">${choices.map(([label,val])=>`<label class="opt"><input type="radio" name="ans" value="${val}" ${answers[idx]===val?"checked":""}><span>${label}</span></label>`).join("")}</div></div>`;
+ document.querySelectorAll('input[name="ans"]').forEach(el=>el.onchange=e=>{answers[idx]=Number(e.target.value);updateProgress();});
+ document.getElementById("prevBtn").style.visibility=idx===0?"hidden":"visible";
+ document.getElementById("nextBtn").textContent=idx===questions.length-1?"結果を見る":"次へ";
+ updateProgress(); window.scrollTo({top:0,behavior:"smooth"});
+}
+function updateProgress(){const done=answers.filter(v=>v!==null).length;document.getElementById("bar").style.width=(done/questions.length*100)+"%";document.getElementById("counter").textContent=`回答済み ${done} / ${questions.length}`;}
+function nextQuestion(){if(answers[idx]===null){alert("回答を選んでください。");return;} if(idx<questions.length-1){idx++;renderQuestion();}else showResult();}
+function prevQuestion(){if(idx>0){idx--;renderQuestion();}}
+
+function radar(scores){
+ const order=["想像型","信念型","行動型","反応型","思考型","感情型"],cx=180,cy=170,R=112,max=15;
+ const pt=(i,r)=>{const a=-Math.PI/2+Math.PI*2*i/order.length;return [cx+Math.cos(a)*r,cy+Math.sin(a)*r]};
+ let grid="";[.25,.5,.75,1].forEach(l=>grid+=`<polygon points="${order.map((_,i)=>pt(i,R*l).join(",")).join(" ")}" fill="none" stroke="#ddd7d0"/>`);
+ const axes=order.map((_,i)=>{const [x,y]=pt(i,R);return `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#e4ded7"/>`}).join("");
+ const data=order.map((t,i)=>pt(i,R*scores[t]/max).join(",")).join(" ");
+ const labels=order.map((t,i)=>{const [x,y]=pt(i,R+28),a=x<cx-5?"end":x>cx+5?"start":"middle";return `<text x="${x}" y="${y}" text-anchor="${a}" font-size="12" font-weight="700" fill="#4d4843">${profiles[t].icon} ${t}</text>`}).join("");
+ return `<svg class="radar" viewBox="0 0 360 340">${grid}${axes}<polygon points="${data}" fill="rgba(62,150,103,.23)" stroke="#3E9667" stroke-width="3"/>${order.map((t,i)=>{const [x,y]=pt(i,R*scores[t]/max);return `<circle cx="${x}" cy="${y}" r="4" fill="${profiles[t].color}"/>`}).join("")}${labels}</svg>`;
+}
+function showResult(){
+ const scores={"想像型":0,"行動型":0,"信念型":0,"反応型":0,"思考型":0,"感情型":0};
+ questions.forEach((q,i)=>scores[q.type]+=answers[i]);
+ const rank=Object.entries(scores).sort((a,b)=>b[1]-a[1]),top=rank[0][0],second=rank[1][0],third=rank[2][0],p=profiles[top];
+ document.getElementById("quiz").classList.add("hidden");
+ document.getElementById("result").innerHTML=`
+ <div id="report" class="result-shell">
+  <section class="result-hero">
+   <div class="result-head">
+    <div><div class="kicker">YOUR RESULT</div><div class="result-type" style="background:${p.color}">${p.icon} ${top}</div><div class="result-title">${p.title}</div>
+      <div class="rank"><span>🥇 ${top}</span><span>🥈 ${second}</span><span>🥉 ${third}</span></div>
+    </div>
+    <div class="character-card" style="background:${p.soft}"><div class="char">${p.icon}</div><strong>${p.title}</strong><span>${p.tag}</span></div>
+   </div>
+  </section>
+  <div class="grid">
+   <main class="panel">
+    <h2>あなたのタイプ特性</h2>
+    <div class="insight good"><h3>😊 良い状態のとき</h3>${p.good}</div>
+    <div class="insight stress"><h3>😟 ストレスがたまったとき</h3>${p.stress}</div>
+    <div class="insight comm"><h3>🤝 コミュニケーションのヒント</h3>${p.comm}</div>
+    <div class="insight care"><h3>🌿 セルフケア</h3>${p.care}</div>
+    <div class="insight" style="background:${profiles[second].soft};border:1px solid ${profiles[second].color}"><h3>⭐ 第2傾向：${second}</h3>${profiles[second].title}の特徴も持っています。第1傾向と組み合わさることで、あなたならではの強みや行動パターンが表れます。</div>
+   </main>
+   <aside>
+    <section class="panel"><h2>6タイプのバランス</h2>${radar(scores)}</section>
+    <section class="panel"><h2>6タイプ得点</h2>${rank.map(([t,s])=>`<div class="score-row"><b>${profiles[t].icon} ${t}</b><div class="track"><div class="fill" style="width:${s/15*100}%;background:${profiles[t].color}"></div></div><b>${s}</b></div>`).join("")}<p class="pdf-note">各タイプ15点満点。得点は優劣ではなく、あなたの中に表れやすい傾向を示します。</p></section>
+    <section class="panel"><h2>6つのタイプ</h2><div class="types">${Object.entries(profiles).map(([t,v])=>`<div class="type-chip" style="background:${v.soft}"><span>${v.icon}</span><b>${t}</b>${v.tag}</div>`).join("")}</div></section>
+   </aside>
+  </div>
+  <div class="panel"><b>もっと詳しく知りたい方へ</b><p class="pdf-note">この簡易チェックだけで人格を断定することはできません。対話や詳しい解説を通して振り返ると、強み・ストレスのサイン・人間関係のパターンをより具体的に理解できます。</p></div>
+ </div>
+ <div class="actions"><button class="btn secondary" onclick="restart()">もう一度行う</button><button class="btn primary" onclick="downloadPDF()">PDF診断書を保存</button></div>`;
+ document.getElementById("result").classList.remove("hidden");window.scrollTo({top:0,behavior:"smooth"});
+}
+function restart(){answers.fill(null);idx=0;document.getElementById("result").classList.add("hidden");document.getElementById("intro").classList.remove("hidden");}
+async function downloadPDF(){
+ const loading=document.getElementById("loading");loading.classList.remove("hidden");
+ try{
+  if(!window.html2canvas||!window.jspdf)throw new Error("PDFライブラリを読み込めませんでした");
+  const el=document.getElementById("report");
+  const canvas=await html2canvas(el,{scale:1.8,useCORS:true,backgroundColor:"#fbf7f1"});
+  const img=canvas.toDataURL("image/jpeg",.92);
+  const {jsPDF}=window.jspdf; const pdf=new jsPDF("p","mm","a4");
+  const pw=210,ph=297,margin=8,iw=pw-margin*2,ih=canvas.height*iw/canvas.width;
+  let y=margin,remaining=ih;
+  pdf.addImage(img,"JPEG",margin,y,iw,ih);
+  remaining-=ph-margin*2;
+  while(remaining>0){pdf.addPage();y=margin-(ih-remaining);pdf.addImage(img,"JPEG",margin,y,iw,ih);remaining-=ph-margin*2;}
+  pdf.save("人格適応論_簡易自己チェック結果.pdf");
+ }catch(e){alert("PDF作成に失敗しました。ブラウザの印刷機能から「PDFに保存」をお試しください。");window.print();}
+ finally{loading.classList.add("hidden");}
+}
+</script>
+</body>
+</html>
