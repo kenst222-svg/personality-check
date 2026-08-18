@@ -1,7 +1,7 @@
-<!doctype html>
-<html lang="ja">
-<head>
-<meta charset="utf-8">
+<!DOCTYPE html>
+<!-- saved from url=(0049)file:///C:/Users/kenst/Downloads/index%20(6).html -->
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>こころサポート｜人格適応論 簡易自己チェック</title>
 <style>
@@ -91,22 +91,22 @@ button,input{font:inherit}
 .main-label{font-size:11px;font-weight:900;letter-spacing:.16em;color:#63747c}
 .main-type{font-size:42px;font-weight:950;letter-spacing:.05em;color:var(--navy);margin:4px 0 2px}
 .sub-type{font-size:14px;font-weight:800;color:#5c6d75;margin-bottom:14px}
-.summary-box{background:#f2f5f4;border-left:5px solid var(--green);padding:12px 13px;font-size:13px;line-height:1.55;font-weight:600;margin-bottom:15px}
-.score-title{font-size:13px;font-weight:950;color:var(--navy);margin:0 0 8px}
+.summary-box{background:#f2f5f4;border-left:5px solid var(--green);padding:14px 15px;font-size:14.5px;line-height:1.58;font-weight:600;margin-bottom:16px}
+.score-title{font-size:16px;font-weight:950;color:var(--navy);margin:0 0 10px;letter-spacing:.03em}
 .score-bars{display:grid;gap:8px}
-.score-line{display:grid;grid-template-columns:58px 1fr 52px;gap:8px;align-items:center;font-size:11px}
+.score-line{display:grid;grid-template-columns:72px 1fr 70px;gap:10px;align-items:center;font-size:14px}
 .score-line .label{font-weight:900}
-.track{height:10px;background:#e7ecee;overflow:hidden}
+.track{height:16px;background:#e7ecee;overflow:hidden;border:1px solid #c9d2d6}
 .fill{height:100%}
-.point{font-weight:950;text-align:right;color:#23343d}
-.rankline{margin-top:12px;padding-top:10px;border-top:1px solid #d8dfe2;font-size:11px;line-height:1.55;color:#53646c}
+.point{font-weight:950;text-align:right;color:#23343d;font-size:14px}
+.rankline{margin-top:14px;padding-top:11px;border-top:1px solid #d8dfe2;font-size:13px;line-height:1.6;color:#53646c}
 
 .details-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .info-card{border:1px solid #cfd8dc;background:#fff;padding:12px 14px;min-height:105px}
 .info-card h3{font-size:12px;letter-spacing:.08em;color:#fff;background:var(--navy);
   display:inline-block;margin:-12px 0 9px -14px;padding:7px 12px;font-weight:950}
-.info-card p{font-size:12px;line-height:1.55;margin:0;color:#273942;font-weight:550}
-.info-card.need h3,.info-card.contact h3{background:var(--green)}
+.info-card p{font-size:13.5px;line-height:1.58;margin:0;color:#273942;font-weight:550}
+.info-card.need h3,.info-card.contact h3{background:var(--navy)}
 .driver-value{font-size:20px!important;font-weight:950!important;color:var(--navy)!important;letter-spacing:.03em}
 .report-footer{
   display:flex;justify-content:space-between;gap:18px;align-items:flex-end;
@@ -124,35 +124,140 @@ button,input{font:inherit}
   .report{padding:18px;min-width:960px} .report-wrap{overflow-x:auto}
 }
 
-/* A4横 1枚 */
-@page{size:A4 landscape;margin:7mm}
+/* A4横 1枚・可読性優先 */
+@page{size:A4 landscape;margin:6mm}
 @media print{
-  html,body{width:297mm;height:210mm;background:#fff!important;overflow:hidden!important}
+  *{
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important;
+  }
+  html,body{
+    width:297mm!important;
+    height:210mm!important;
+    margin:0!important;
+    padding:0!important;
+    background:#fff!important;
+    overflow:hidden!important;
+  }
   body *{visibility:hidden!important}
   #result,#result *{visibility:visible!important}
-  #result{display:block!important;position:absolute!important;left:0!important;top:0!important;
-    width:297mm!important;height:210mm!important;margin:0!important;padding:0!important}
-  .report-wrap{width:283mm!important;height:196mm!important;max-width:none!important;margin:0!important}
-  .report{width:283mm!important;height:196mm!important;min-height:0!important;margin:0!important;padding:6mm 7mm 5mm!important;
-    box-shadow:none!important;border:1px solid #b9c3c7!important;overflow:hidden!important}
+  #result{
+    display:block!important;
+    position:absolute!important;
+    left:0!important;
+    top:0!important;
+    width:297mm!important;
+    height:210mm!important;
+    margin:0!important;
+    padding:0!important;
+  }
+  .report-wrap{
+    width:285mm!important;
+    height:198mm!important;
+    max-width:none!important;
+    margin:0!important;
+    padding:0!important;
+  }
+  .report{
+    width:285mm!important;
+    height:198mm!important;
+    min-height:0!important;
+    margin:0!important;
+    padding:5mm 6mm 4mm!important;
+    box-shadow:none!important;
+    border:1px solid #aeb8bd!important;
+    overflow:hidden!important;
+    background:#fff!important;
+  }
   .report-actions{display:none!important}
-  .report-header{margin-bottom:4mm!important;padding-bottom:3mm!important}
-  .report-title{font-size:20pt!important}
-  .main-type{font-size:27pt!important}
-  .summary-box{font-size:8.5pt!important;line-height:1.4!important;padding:2.4mm!important;margin-bottom:3mm!important}
-  .score-bars{gap:1.6mm!important}
-  .score-line{font-size:7.8pt!important;grid-template-columns:14mm 1fr 12mm!important}
-  .track{height:2.2mm!important}
-  .details-col{gap:2.2mm!important}
-  .info-card{padding:2.5mm 3mm!important;min-height:25mm!important}
-  .info-card h3{font-size:8pt!important;margin:-2.5mm 0 2mm -3mm!important;padding:1.4mm 2.8mm!important}
-  .info-card p{font-size:8pt!important;line-height:1.4!important}
-  .driver-value{font-size:13pt!important}
-  .report-footer{font-size:6.7pt!important;margin-top:2.5mm!important;padding-top:2mm!important}
   .topbar,.shell>#intro,.shell>#quiz,.shell>footer{display:none!important}
   .shell{max-width:none!important;margin:0!important;padding:0!important}
-  .report-grid{grid-template-columns:34% 66%!important;gap:3mm!important}
-  .summary-col{padding-right:3mm!important}
+
+  .report-header{
+    margin-bottom:3mm!important;
+    padding-bottom:2.4mm!important;
+    border-bottom:3px solid #102a43!important;
+  }
+  .report-kicker{font-size:7.5pt!important}
+  .report-title{font-size:21pt!important;line-height:1.1!important}
+  .report-meta{font-size:8.8pt!important;line-height:1.45!important}
+
+  .report-grid{
+    grid-template-columns:35% 65%!important;
+    gap:3.2mm!important;
+  }
+  .summary-col{
+    padding-right:3.2mm!important;
+  }
+  .main-label{font-size:8pt!important}
+  .main-type{font-size:28pt!important;line-height:1.05!important;margin:1mm 0 .5mm!important}
+  .sub-type{font-size:9.5pt!important;margin-bottom:2.4mm!important}
+  .summary-box{
+    font-size:9.7pt!important;
+    line-height:1.42!important;
+    padding:2.6mm 2.8mm!important;
+    margin-bottom:3mm!important;
+  }
+
+  .score-title{
+    font-size:10pt!important;
+    margin-bottom:2mm!important;
+  }
+  .score-bars{gap:1.9mm!important}
+  .score-line{
+    font-size:9pt!important;
+    grid-template-columns:17mm 1fr 16mm!important;
+    gap:2mm!important;
+  }
+  .score-line .label{font-size:9pt!important}
+  .track{
+    height:4mm!important;
+    background:#e3e8ea!important;
+    border:1px solid #9ca9af!important;
+  }
+  .fill{
+    height:100%!important;
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important;
+  }
+  .point{
+    font-size:9.3pt!important;
+    font-weight:950!important;
+  }
+  .rankline{
+    font-size:8.4pt!important;
+    line-height:1.45!important;
+    margin-top:2.2mm!important;
+    padding-top:2mm!important;
+  }
+
+  .details-col{
+    gap:2.3mm!important;
+  }
+  .info-card{
+    padding:2.6mm 3mm!important;
+    min-height:24mm!important;
+    border:1px solid #aeb9be!important;
+  }
+  .info-card h3{
+    font-size:8.6pt!important;
+    margin:-2.6mm 0 2mm -3mm!important;
+    padding:1.5mm 3mm!important;
+    -webkit-print-color-adjust:exact!important;
+    print-color-adjust:exact!important;
+  }
+  .info-card p{
+    font-size:8.8pt!important;
+    line-height:1.42!important;
+  }
+  .driver-value{font-size:14pt!important}
+
+  .report-footer{
+    font-size:7pt!important;
+    line-height:1.35!important;
+    margin-top:2.2mm!important;
+    padding-top:1.8mm!important;
+  }
 }
 </style>
 </head>
@@ -204,37 +309,37 @@ const typeDetails={
    need:"静かな時間・一人で考えられる空間・自分のペースが守られること。",
    driver:"強くあれ",
    feature:"内的世界が豊かで、想像・観察・熟考を重ねる。表面的な反応は控えめでも、内側では多くを考えていることがある。",
-   contact:"急かさず、短く具体的に伝える。考える時間を確保し、反応の少なさを無関心と決めつけない。"
+   contact:"頭の中で考えていることが相手には見えにくい傾向があります。結論だけでなく、「今こう考えている」「少し考える時間がほしい」など、自分の内側を短く言葉にして伝えることを意識すると誤解が減ります。曖昧な表現より、具体的に伝えることも大切です。"
  },
  "行動型":{
    need:"刺激・挑戦・結果・自分で状況を動かしている実感。",
    driver:"強くあれ／人を喜ばせよ",
    feature:"決断と行動が速く、現実的な成果を重視する。変化や刺激のある状況で力を発揮しやすい。",
-   contact:"結論を明確にし、選択肢と具体的な行動を示す。駆け引きより、率直で簡潔なやり取りが有効。"
+   contact:"率直でテンポよく伝えられる一方、相手によっては強く感じられることがあります。結論を急ぎすぎず、相手の反応を確認しながら話すこと、命令口調にならないよう選択肢や理由を添えることを意識しましょう。"
  },
  "信念型":{
    need:"信頼・尊重・自分の価値観や考えが真剣に扱われること。",
    driver:"強くあれ",
    feature:"誠実さ、責任、信頼、価値基準を重視する。人や物事を慎重に見極め、納得できる基準に沿って行動する。",
-   contact:"意見や価値観を尊重し、根拠を示して丁寧に対話する。正面から価値観を否定しない。"
+   contact:"自分の考えや価値観に確信を持って伝えられる反面、相手には「決めつけられた」と受け取られることがあります。自分の基準を述べるときは、「私はこう考える」と主語を自分に置き、相手の考えを聞く余地も残すことが大切です。"
  },
  "反応型":{
    need:"楽しさ・自由・肯定的な反応・自分らしく振る舞える余地。",
    driver:"努力せよ",
    feature:"好き・嫌いの感覚が明確で、反応が素直。楽しさや自由度がある環境で発想力と対人魅力を発揮しやすい。",
-   contact:"明るく分かりやすく関わり、選択肢を残す。細かな管理や一方的な命令より、興味を引く伝え方が有効。"
+   contact:"気持ちや好き嫌いが言葉に出やすく、場を明るくできる反面、その場の感情だけで伝えてしまうことがあります。強い反応の前に一度立ち止まり、「何を伝えたいか」を整理してから話すことを意識すると、相手に伝わりやすくなります。"
  },
  "思考型":{
    need:"課題の達成・時間や役割の構造化・能力や仕事ぶりが認められること。",
    driver:"完全であれ",
    feature:"事実、論理、計画、正確性を重視する。情報を整理・構造化し、責任をもって課題を遂行することに強みがある。",
-   contact:"目的・期限・手順を明確にし、情報を整理して伝える。感情だけでなく事実や根拠を添える。"
+   contact:"情報を正確に整理して伝える力がありますが、説明が細かくなりすぎたり、感情が伝わりにくくなったりすることがあります。要点を先に伝えたうえで必要な情報を補足し、時には自分の気持ちも一言添えることを意識しましょう。"
  },
  "感情型":{
    need:"人とのつながり・受容・温かい関心・存在そのものを認めてもらうこと。",
    driver:"人を喜ばせよ",
    feature:"人への関心が高く、共感・思いやり・調和を重視する。相手の感情を敏感に受け取り、関係を支える力がある。",
-   contact:"温かい表情と言葉で関心を示し、気持ちを受け止める。本人の希望も確認し、他者優先になりすぎないよう支える。"
+   contact:"相手を気遣いながら伝える力がありますが、自分の希望を後回しにしやすい傾向があります。相手に合わせるだけでなく、「私はこうしたい」「私はこう感じた」と自分の気持ちや希望も言葉にすることを大切にしましょう。"
  }
 };
 const choices=[["とても当てはまる",3],["やや当てはまる",2],["あまり当てはまらない",1],["当てはまらない",0]];
@@ -299,7 +404,7 @@ function showResult(){
       <article class="info-card"><h3>判別ドライバー（参考）</h3><p class="driver-value">${d.driver}</p></article>
       <article class="info-card"><h3>特徴・強み</h3><p>${p.good}</p></article>
       <article class="info-card"><h3>ストレス時の傾向</h3><p>${p.stress}</p></article>
-      <article class="info-card contact"><h3>コミュニケーション</h3><p>${d.contact}</p></article>
+      <article class="info-card contact"><h3>相手に伝えるときのコミュニケーション注意点</h3><p>${d.contact}</p></article>
       <article class="info-card"><h3>セルフケア・留意点</h3><p>${p.care}</p></article>
     </section>
    </div>
@@ -310,7 +415,7 @@ function showResult(){
   </div>
   <div class="report-actions">
     <button class="btn" onclick="restart()">もう一度行う</button>
-    <button class="btn green" onclick="window.print()">A4横1枚で印刷 / PDF保存</button>
+    <button class="btn green" onclick="window.print()">A4横1枚で印刷 / PDF保存</button><div style="font-size:12px;color:#6a777e;margin-top:8px;text-align:center">印刷画面で「背景のグラフィック」をONにすると、棒グラフの色が確実に印刷されます。</div>
   </div>
  </div>`;
  document.getElementById("result").classList.remove("hidden");
@@ -322,5 +427,5 @@ function restart(){
  document.getElementById("intro").classList.remove("hidden");
 }
 </script>
-</body>
-</html>
+
+</body></html>
